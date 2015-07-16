@@ -1,17 +1,18 @@
+class Node{
+	int data;
+	public Node left, right, parent;
+	
+	Node(int data){
+		this.data=data;
+		left=null;
+		right=null;
+		parent=null;
+	}
+	
+}
 
 class Tree{
-	class Node{
-		int data;
-		public Node left, right, parent;
-		
-		Node(int data){
-			this.data=data;
-			left=null;
-			right=null;
-			parent=null;
-		}
-		
-	}
+	
 	
 	public Node root;
 	
@@ -25,14 +26,14 @@ class Tree{
 				parent.left=temp;
 				temp.parent=parent;
 			}else{
-				recurse(root.left,temp);
+				recurse(parent.left,temp);
 			}
 		}else{
 			if (parent.right==null){
 				parent.right=temp;
 				temp.parent=parent;
 			}else{
-				recurse(root.right,temp);
+				recurse(parent.right,temp);
 			}
 		}
 	}
