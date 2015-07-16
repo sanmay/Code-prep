@@ -16,29 +16,44 @@ class Node{
 
 class CommonAncester{
 	
-	int nodesFound;
 	
-	CommonAncester(){
-		nodesFound=0;
+	static Node LCA(Node n, int a, int b){
+		if(n==null)
+			return null;
+		else if (n.data==a || n.data==b){
+			return n;
+		}
+		else{
+			Node left=LCA(n.left,a,b);
+			Node right=LCA(n.right,a,b);
+			
+			if(left!=null&&right!=null)
+				return n;
+			else{
+				if(left!=null)
+					return left;
+				else
+					return right;
+			}
+		}
+		
 	}
 	
-	Node getCommonAncester (Node temp. int p, int q){
-		Node result;
-		if (temp==null)
-			return null;
-		else{
-			
-			result=getCommonAncester(temp.left,p,q) || getCommonAncester(temp.right,p,q);
-			if(temp.data==p || temp.data==q){
-				nodesFound++;
-			}
-			if (nodesFound==1)
-				return temp.parent;
-			else if (nodesFound==2)
-				return result;
-			else
-				return null;
-		}
+	public static void main(String[] args){
+		System.out.println("This class tests all functions of tree");
+		Tree T=new Tree();
+		T.insert(3);
+		T.insert(1);
+		T.insert(2);
+		T.insert(5);
+		T.insert(6);
+		T.insert(4);
+		System.out.println("Inorder");
+		T.inorder(T.root);
+		
+		CommonAncester CA=new CommonAncester();
+		Node temp=CA.LCA(T.root,3,1);
+		System.out.println("Ancestor="+temp.data);
 	}
 }
 
@@ -178,23 +193,4 @@ class Tree{
 }
 
 
-class TreeLinkedList{
 
-	public static void main(String[] args){
-		System.out.println("This class tests all functions of tree");
-		Tree T=new Tree();
-		T.insert(3);
-		T.insert(1);
-		T.insert(2);
-		T.insert(5);
-		T.insert(6);
-		T.insert(4);
-		System.out.println("Inorder");
-		T.inorder(T.root);
-		
-		CommonAncester CA=new CommonAncester();
-		Node temp=CA.getCommonAncester(T.root,4,5);
-		System.out.println("Ancestor="+temp.data);
-		
-	}
-}
