@@ -1,18 +1,56 @@
 
+import java.util.*;
 
-class Tree{
-	class Node{
+class Node{
 		int data;
 		public Node left, right, parent;
-	
+		
 		Node(int data){
 			this.data=data;
 			left=null;
 			right=null;
 			parent=null;
 		}
-	
+		
 	}
+
+
+class Tree2LinkedList{
+	ArrayList<LinkedList<Node>> convert2LL(Node root ){
+		ArrayList <LinkedList<Node>> results= new ArrayList<LinkedList<Node>>();
+		
+		LinkedList<Node> list;
+		int level=0;
+		list = new LinkedList<Node>();
+		list.add(root);
+		results.add(list);
+		
+		while(true){
+			list=results.get(level);
+			LinkedList<Node> tempLL=new LinkedList<Node>();
+			for (int i=0;i<list.size();i++){
+				Node temp=list.get(i);
+				System.out.println(temp.data);
+				if(temp.left!=null)
+					tempLL.add(temp.left);
+				if (temp.right!=null)
+					tempLL.add(temp.right);					
+			}
+			if (tempLL.size()>0){
+				results.add(tempLL);
+				level++;
+			}
+			else
+				break;
+		}
+		
+		return results;
+	}
+}
+
+
+class Tree{
+	
 	
 	public Node root;
 	
@@ -144,7 +182,7 @@ class Tree{
 }
 
 
-class TreeTest{
+class TreeLinkedList{
 
 	public static void main(String[] args){
 		System.out.println("This class tests all functions of tree");
@@ -157,13 +195,17 @@ class TreeTest{
 		T.insert(4);
 		System.out.println("Inorder");
 		T.inorder(T.root);
-		System.out.println("Preorder");
-		T.preorder(T.root);
-		System.out.println("Postorder");
-		T.postorder(T.root);
-		System.out.println("Min="+T.min(T.root));
-		System.out.println("Max="+T.max(T.root));
-		System.out.println("pre="+T.sucdec(6,T.root));
+		Tree2LinkedList TL=new Tree2LinkedList();
+		ArrayList<LinkedList<Node>> results=TL.convert2LL(T.root );
+		for(int i=0;i<results.size();i++){
+			System.out.println("Level="+i);
+			LinkedList<Node> temp= results.get(i);			
+			for (int j=0;j<temp.size();j++){
+				Node temp2=temp.get(j);
+				System.out.print(temp2.data+"\t");				
+			}
+			System.out.println();
+		}
 		
 	}
 }

@@ -1,18 +1,52 @@
 
+import java.util.*;
 
-class Tree{
-	class Node{
+class Node{
 		int data;
 		public Node left, right, parent;
-	
+		
 		Node(int data){
 			this.data=data;
 			left=null;
 			right=null;
 			parent=null;
 		}
+		
+}
+
+class CommonAncester{
 	
+	int nodesFound;
+	
+	CommonAncester(){
+		nodesFound=0;
 	}
+	
+	Node getCommonAncester (Node temp. int p, int q){
+		Node result;
+		if (temp==null)
+			return null;
+		else{
+			
+			result=getCommonAncester(temp.left,p,q) || getCommonAncester(temp.right,p,q);
+			if(temp.data==p || temp.data==q){
+				nodesFound++;
+			}
+			if (nodesFound==1)
+				return temp.parent;
+			else if (nodesFound==2)
+				return result;
+			else
+				return null;
+		}
+	}
+}
+
+
+
+
+class Tree{
+	
 	
 	public Node root;
 	
@@ -144,7 +178,7 @@ class Tree{
 }
 
 
-class TreeTest{
+class TreeLinkedList{
 
 	public static void main(String[] args){
 		System.out.println("This class tests all functions of tree");
@@ -157,13 +191,10 @@ class TreeTest{
 		T.insert(4);
 		System.out.println("Inorder");
 		T.inorder(T.root);
-		System.out.println("Preorder");
-		T.preorder(T.root);
-		System.out.println("Postorder");
-		T.postorder(T.root);
-		System.out.println("Min="+T.min(T.root));
-		System.out.println("Max="+T.max(T.root));
-		System.out.println("pre="+T.sucdec(6,T.root));
+		
+		CommonAncester CA=new CommonAncester();
+		Node temp=CA.getCommonAncester(T.root,4,5);
+		System.out.println("Ancestor="+temp.data);
 		
 	}
 }
