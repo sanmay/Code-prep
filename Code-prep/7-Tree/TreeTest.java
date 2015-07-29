@@ -3,6 +3,7 @@
 class Tree{
 	class Node{
 		int data;
+		int size;
 		public Node left, right, parent;
 	
 		Node(int data){
@@ -10,6 +11,7 @@ class Tree{
 			left=null;
 			right=null;
 			parent=null;
+			size=0;
 		}
 	
 	}
@@ -53,7 +55,7 @@ class Tree{
 			return;
 		else{
 			inorder(parent.left);
-			System.out.println(parent.data);
+			System.out.println(parent.data+" "+parent.size);
 			inorder(parent.right);
 		}
 	}
@@ -141,6 +143,56 @@ class Tree{
 		}
 	}
 	}
+
+	Node floor(int data, Node temp){
+		if (temp==null)
+			return null;
+		else{
+			if(data==temp.data)
+				return temp;
+			else{
+				if(data<temp.data)
+					return floor(data,temp.left);
+				else{
+					Node t=floor(data,temp.right);
+					if(t!=null) return t;
+					else
+						return temp;
+				}
+			}
+		}
+	}
+
+	int cal_size(Node temp){
+		if (temp==null)
+			return 0;
+		else
+			temp.size=1+cal_size(temp.left)+cal_size(temp.right);
+			return temp.size;
+	}
+
+	Node select(int rank, Node temp){
+		int t_size;
+		if(temp==null)
+			return null;
+		else{
+			if(temp.left!=null){
+				t_size=temp.left.size;
+			}else{
+				t_size=0;
+			}
+			if(rank==temp.size-t_size){
+				return temp;
+			}else{
+				if(rank>t_size)
+					return select(rank-t_size-1,temp.right);
+				else
+					return select(rank,temp.left);
+			}
+				
+			
+			}
+	}
 }
 
 
@@ -149,21 +201,17 @@ class TreeTest{
 	public static void main(String[] args){
 		System.out.println("This class tests all functions of tree");
 		Tree T=new Tree();
-		T.insert(3);
-		T.insert(1);
-		T.insert(2);
+		T.insert(7);
 		T.insert(5);
+		T.insert(9);
 		T.insert(6);
 		T.insert(4);
+		T.insert(10);
+		T.insert(8);
+		T.cal_size(T.root);
 		System.out.println("Inorder");
 		T.inorder(T.root);
-		System.out.println("Preorder");
-		T.preorder(T.root);
-		System.out.println("Postorder");
-		T.postorder(T.root);
-		System.out.println("Min="+T.min(T.root));
-		System.out.println("Max="+T.max(T.root));
-		System.out.println("pre="+T.sucdec(6,T.root));
+		System.out.println("Rank="+T.select(1,T.root).data);
 		
 	}
 }
