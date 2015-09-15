@@ -13,7 +13,7 @@ class Files{
 	void ListFiles (String input) throws IOException{
 		File f=new File(input);
 		if(f.isFile()){
-			if(f.getName().contains(".java")){
+			if(f.getName().contains(".java") || f.getName().contains(".py")){
 				System.out.println(f.getAbsolutePath());
 				BufferedReader in=new BufferedReader(new FileReader(f.getAbsolutePath()));
 				String s;

@@ -49,6 +49,7 @@ class LinkedList{
 		
 	} 
 }
+% First Program
 
 
 class BST{
@@ -362,7 +363,7 @@ class Files{
 	void ListFiles (String input) throws IOException{
 		File f=new File(input);
 		if(f.isFile()){
-			if(f.getName().contains(".java")){
+			if(f.getName().contains(".java") || f.getName().contains(".py")){
 				System.out.println(f.getAbsolutePath());
 				BufferedReader in=new BufferedReader(new FileReader(f.getAbsolutePath()));
 				String s;
@@ -2797,6 +2798,7 @@ class LinkedList{
 		
 	} 
 }
+% First Program
 
 
 class BST{
@@ -5337,6 +5339,25 @@ class AMGTest{
 		A.anagrams(phrases);
 	}
 }
+import sys
+
+
+a=[5,4,6,9,2,10]
+SUM=12
+i=0
+j=0
+_sum=0
+while(j<len(a)+1):
+	print _sum
+	if(_sum<SUM):
+		_sum+=a[j]
+		j+=1
+	elif(_sum>SUM):
+		_sum-=a[i]
+		i+=1
+	else:
+		print i, j-1
+		break;
 
 import java.util.*;
 
@@ -6025,6 +6046,45 @@ class MethodsH{
 		}
 		
 	}
+	
+	
+	String getChar(String input){
+		
+		if (input==null)
+			return null;
+		int num=Integer.parseInt(input);
+		if(num>26 || num<=0)
+			return null;
+		else{
+			int temp=num+(int)'a'-1;
+			char temp_c=(char)temp;
+			return Character.toString(temp_c);
+		}
+	}
+	
+	void printNumToStringCombo(String input, String result){
+		
+		if(input.length()==0){
+			System.out.println(result);
+		}else{
+			for(int i=1;i<=input.length();i++){
+				String cur=input.substring(0,i);
+				String rem=input.substring(i,input.length());
+				String res=getChar(cur);
+				//System.out.println("cur="+cur+" res="+res);
+				if(res!=null)
+					printNumToStringCombo(rem,result+res);
+				
+			}
+		}
+	}
+	
+	static int num=0;
+	void testStatic(){
+		//int num=0;
+		System.out.println(num);
+		num++;
+	}
 }
 
 
@@ -6077,15 +6137,8 @@ class MethodsTest{
 		
 		
 		MethodsH m=new MethodsH();
-		
-		int[][] board=new int[4][4];
-		
-		for(int i=0;i<board.length;i++){
-			for(int k=0;k<board[0].length;k++){
-				board[i][k]=0;
-			}
-		}
-		m.queens(board,0,-1);
+		m.testStatic();
+		m.testStatic();
 		
 	}
 }
@@ -6103,6 +6156,140 @@ class TreeTest{
 ;	}
 	
 }
+import os
+
+
+class Node(object):
+    data=0.0
+    Next=None
+    
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+        
+    def printNode(self):
+        print self.data
+    
+    
+class LinkedList(object):
+    '''This class provides insertion in linkedlist'''
+    head=None
+    
+    def insert(self,data):
+        temp=Node(data)
+        if self.head==None:
+            self.head=temp
+        else:
+            cur=self.head
+            while cur.Next!=None:
+                cur=cur.Next
+            cur.Next=temp
+            
+    def printLL(self):
+        cur=self.head
+        while cur!=None:
+            cur.printNode()
+            cur=cur.Next
+            
+if __name__=="__main__":
+    LL=LinkedList()
+    LL.insert(2)
+    LL.insert(3)
+    LL.printLL()
+    print "Yes"
+�
+��Uc           @   sx   d  d l  Z  d e f d �  �  YZ d e f d �  �  YZ e d k rt e �  Z e j d � e j d � e j �  n  d S(	   i����Nt   Nodec           B   s&   e  Z d  Z d Z d �  Z d �  Z RS(   g        c         C   s   | |  _  d  |  _ d  S(   N(   t   datat   Nonet   next(   t   selfR   (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyt   __init__   s    	c         C   s   |  j  GHd  S(   N(   R   (   R   (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyt	   printNode   s    N(   t   __name__t
+   __module__R   R   t   NextR   R   (    (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyR       s   	t
+   LinkedListc           B   s&   e  Z d  Z d Z d �  Z d �  Z RS(   s+   This class provides insertion in linkedlistc         C   s\   t  | � } |  j d  k r' | |  _ n1 |  j } x | j d  k rN | j } q3 W| | _ d  S(   N(   R    t   headR   R	   (   R   R   t   tempt   cur(    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyt   insert   s    	
+c         C   s3   |  j  } x# | d  k r. | j �  | j } q Wd  S(   N(   R   R   R   R	   (   R   R
+   (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyt   printLL   s    	
+N(   R   R   t   __doc__R   R   R   R   (    (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyR
+      s   	
+t   __main__i   i   (   t   ost   objectR    R
+   R   t   LLR   R   (    (    (    sV   /Users/sanmaypatil/Desktop/Codes/Code-prep/Code-prep/Python/1-LinkedList/LinkedList.pyt   <module>   s   	
+
+
+from LinkedList import LinkedList
+
+
+
+def printMiddle(head):
+    slow=head
+    fast=head
+    print slow.Next
+    
+    while fast!=None and fast.Next!=None and fast.Next.Next!=None:
+        fast=fast.Next.Next
+        slow=slow.Next
+    
+    return slow.data
+    
+if __name__=="__main__":
+    l=LinkedList()
+    l.insert(1)
+    l.insert(2)
+    l.insert(3)
+    l.insert(4)
+    l.insert(5)
+    l.insert(6)
+    l.printLL()
+    print printMiddle(l.head)
+
+import random
+
+
+def test_fun(name,**args):
+    print name.count('a')
+    print args
+
+
+class myclass(object):
+    a=0
+    b=0
+    
+    def __init__(self,a=0,b=0):
+        self.a=a
+        self.b=b
+   #def __eq__(self,other):
+    #    if self.a==other.a:
+     #       return True
+      #  else:
+       #     return False
+    
+    def __str__(self):
+        return str(self.a)
+    
+    def printme(self):
+        print self.a,self.b
+        
+    @staticmethod
+    def stat_method():
+        print "this is static method"
+
+class c_class(myclass):
+    
+    def __init__(self,a=0,b=0,c=0):
+        super(c_class,self).__init__(a,b)
+        
+if __name__=="__main__":
+    
+    my_dict={}
+    for i in xrange(1,100,2):
+        num=random.randint(1,10)
+        print num
+        if my_dict.has_key(num):
+            my_dict[num]=my_dict[num]+1
+        else:
+            my_dict[num]=1;
+    
+    for key in my_dict.keys():
+        print my_dict[key]
+    
+    print my_dict
+    
+    
+    
+    
 import java.util.*;
 
 class Aaagmnrs{
@@ -6132,3 +6319,22 @@ class AMGTest{
 		A.anagrams(phrases);
 	}
 }
+import sys
+
+
+a=[5,4,6,9,2,10]
+SUM=12
+i=0
+j=0
+_sum=0
+while(j<len(a)+1):
+	print _sum
+	if(_sum<SUM):
+		_sum+=a[j]
+		j+=1
+	elif(_sum>SUM):
+		_sum-=a[i]
+		i+=1
+	else:
+		print i, j-1
+		break;

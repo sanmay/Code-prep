@@ -38,3 +38,4 @@ if __name__=="__main__":
     LL.insert(2)
     LL.insert(3)
     LL.printLL()
+    print "Yes"
