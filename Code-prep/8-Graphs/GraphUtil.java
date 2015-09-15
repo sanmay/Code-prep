@@ -31,7 +31,7 @@ class Node{
 
 class Graph{
 
-	ArrayList <Node> Vertices;
+	public ArrayList <Node> Vertices;
 	
 	
 	Graph(){
@@ -102,18 +102,70 @@ class Graph{
 			
 		}
 	}
+	
+	void DFS(Node n){
+		System.out.println(n.data);
+		ArrayList <Node> edges=n.getEdges();
+		for(int i=0;i<edges.size();i++){
+			Node temp=getNode(edges.get(i).data);
+			if (temp.visited==false){
+				temp.visited=true;
+				DFS(temp);
+			}
+			
+		}
+		
+	}
+	
+	boolean FindUndirectedCycle(Node n, Node parent){
+		n.visited=true;
+		ArrayList<Node> edges=n.getEdges();
+		for(int i=0;i<edges.size();i++){
+			Node temp=getNode(edges.get(i).data);
+			if(temp.visited==true && temp.data!=parent.data)
+				return false;
+			else if(temp.visited!=true)
+				return FindUndirectedCycle(temp,n);
+		}
+		return true;
+	}
+	
+	boolean DFSUtil(Node n){
+		ArrayList<Node> edges=n.getEdges();
+		for(int i=0;i<edges.size();i++){
+			Node temp=getNode(edges.get(i).data);
+			if(temp.visited)
+				return false;
+			else
+				return DFSUtil(temp);
+		}
+		return true;
+	}
+	
+	boolean FindDirectCycle(){
+		
+		for(int i=0;i<Vertices.size();i++){
+			Vertices.get(i).visited=true;
+			if (!DFSUtil(Vertices.get(i)))
+				return false;
+			Vertices.get(i).visited=false;
+		}
+		return true;
+	}
 }
 
 class GraphUtil{
 	public static void main(String [] args){
 		System.out.println("Graph and methods");
 		Graph G=new Graph();
-		G.insert(1,new int[]{3,5});
-		G.insert(3,new int[]{1,7});
-		G.insert(5,new int[]{1,7});
-		G.insert(7,new int[]{3,5});
-		//G.print();
-		G.BFS(G);
+		G.insert(1,new int[]{3});
+		G.insert(3,new int[]{});
+		G.insert(5,new int[]{1});
+		G.insert(7,new int[]{5,3});
+		G.print();
+		System.out.println(G.FindDirectCycle());
+		
+		
 		
 	}
 	

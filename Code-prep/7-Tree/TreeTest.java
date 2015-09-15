@@ -1,20 +1,20 @@
+class Node{
+	int data;
+	int size;
+	public Node left, right, parent;
 
+	Node(int data){
+		this.data=data;
+		left=null;
+		right=null;
+		parent=null;
+		size=0;
+	}
+
+}
 
 class Tree{
-	class Node{
-		int data;
-		int size;
-		public Node left, right, parent;
 	
-		Node(int data){
-			this.data=data;
-			left=null;
-			right=null;
-			parent=null;
-			size=0;
-		}
-	
-	}
 	
 	public Node root;
 	
@@ -193,6 +193,67 @@ class Tree{
 			
 			}
 	}
+	
+	Node inPlaceSucc(Node temp, int data){
+		if (temp==null)
+			return null;
+		else{
+			if(temp.data==data){
+				if(temp.right!=null){
+					Node suc=null;
+					temp=temp.right;
+					while(temp!=null){
+						suc=temp;
+						temp=temp.left;
+					}
+					return suc;
+				}
+				else{
+					return null;
+				}
+			}else{
+				if(data>temp.data)
+					return inPlaceSucc(temp.right,data);
+				else{
+					Node suc=inPlaceSucc(temp.left,data);
+					return suc!=null?suc:temp;
+				}
+			}
+		}
+	}
+	
+	int minHeight(Node temp){
+		if(temp==null)
+			return 0;
+		else{
+			int left=minHeight(temp.left);
+			int right=minHeight(temp.right);
+			return left<right?left+1:right+1;
+		}
+
+	}
+
+	int maxHeight(Node temp){
+		if(temp==null)
+			return 0;
+		else{
+			int left=maxHeight(temp.left);
+			int right=maxHeight(temp.right);
+			return left>right?left+1:right+1;
+		}
+	}
+
+	boolean isBalanced(Node temp){
+		if (temp==null)
+			return true;
+		else{
+			return maxHeight(temp)-minHeight(temp)<=1;
+		}
+	}
+	
+	
+	
+	
 }
 
 
@@ -203,7 +264,6 @@ class TreeTest{
 		Tree T=new Tree();
 		T.insert(7);
 		T.insert(5);
-		T.insert(9);
 		T.insert(6);
 		T.insert(4);
 		T.insert(10);
@@ -211,7 +271,9 @@ class TreeTest{
 		T.cal_size(T.root);
 		System.out.println("Inorder");
 		T.inorder(T.root);
-		System.out.println("Rank="+T.select(1,T.root).data);
+		//Node suc=T.inPlaceSucc(T.root,5);
+		System.out.println(T.isBalanced(T.root));
+		
 		
 	}
 }
